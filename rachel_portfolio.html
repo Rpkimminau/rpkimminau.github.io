@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rachel — Marketing Analytics & Brand Strategy</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1917;
+    --ink-soft: #6b6860;
+    --ink-faint: #b5b3ae;
+    --cream: #f5f2eb;
+    --cream-dark: #ede9e0;
+    --accent: #c94f2c;
+    --accent-light: #f0d9d2;
+    --teal: #1d6f6a;
+    --teal-light: #d0ebe9;
+    --gold: #b07d3a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: var(--cream);
+    border-bottom: 1px solid var(--cream-dark);
+  }
+  .nav-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 5rem;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 4rem 5rem 6rem;
+    position: relative;
+  }
+  .hero-eyebrow {
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+  .hero-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-tagline {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: var(--ink-soft);
+    max-width: 420px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+  }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.75rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .btn-primary:hover { background: var(--accent); }
+  .btn-outline {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--ink);
+  }
+  .btn-outline:hover { background: var(--ink); color: var(--cream); }
+
+  .hero-right {
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    justify-content: flex-end;
+  }
+  .hero-graphic {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .hero-stat-stack {
+    position: relative;
+    z-index: 2;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-self: center;
+    width: 100%;
+  }
+  .stat-pill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 3px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+  .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.5rem;
+    color: #fff;
+    letter-spacing: -0.03em;
+  }
+  .stat-label {
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.4;
+  }
+  .hero-bg-text {
+    position: absolute;
+    bottom: -1.5rem;
+    right: -1rem;
+    font-family: 'DM Serif Display', serif;
+    font-size: 18rem;
+    color: rgba(255,255,255,0.03);
+    line-height: 1;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 6rem; }
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    font-weight: 400;
+  }
+  .section-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 3rem;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--cream);
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 5rem;
+    align-items: start;
+  }
+  .about-body p {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--ink-soft);
+    line-height: 1.85;
+    margin-bottom: 1.25rem;
+  }
+  .about-body strong { color: var(--ink); font-weight: 500; }
+  .skills-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .skill-group-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-bottom: 0.5rem;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    font-size: 0.8rem;
+    font-weight: 400;
+    padding: 0.35rem 0.85rem;
+    border-radius: 2px;
+    background: var(--cream-dark);
+    color: var(--ink-soft);
+    letter-spacing: 0.02em;
+  }
+  .tag.accent { background: var(--accent-light); color: var(--accent); }
+  .tag.teal { background: var(--teal-light); color: var(--teal); }
+
+  /* ── EXPERIENCE ── */
+  #experience { background: var(--cream-dark); }
+  .timeline { position: relative; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.5rem;
+    bottom: 0;
+    width: 1px;
+    background: var(--accent);
+    opacity: 0.3;
+  }
+  .timeline-item {
+    padding-left: 2.5rem;
+    margin-bottom: 3.5rem;
+    position: relative;
+  }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: 0.5rem;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .timeline-item:last-child { margin-bottom: 0; }
+  .timeline-meta {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+    flex-wrap: wrap;
+  }
+  .timeline-role {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.2rem;
+    color: var(--ink);
+  }
+  .timeline-date {
+    font-size: 0.78rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.05em;
+  }
+  .timeline-company {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
+  .timeline-desc {
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    font-weight: 300;
+    line-height: 1.75;
+  }
+
+  /* ── PROJECTS ── */
+  #projects { background: var(--ink); }
+  #projects .section-label { color: var(--accent); }
+  #projects .section-title { color: #fff; }
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5px;
+    background: rgba(255,255,255,0.08);
+  }
+  .project-card {
+    background: var(--ink);
+    padding: 2.5rem 2rem;
+    transition: background 0.25s;
+    cursor: default;
+  }
+  .project-card:hover { background: #252320; }
+  .project-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    color: rgba(255,255,255,0.08);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+    user-select: none;
+  }
+  .project-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+  .project-desc {
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.45);
+    font-weight: 300;
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .ptag {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.65rem;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.45);
+    border-radius: 2px;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--accent);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    padding: 7rem 6rem;
+  }
+  #contact .section-label { color: rgba(255,255,255,0.65); }
+  #contact .section-title { color: #fff; margin-bottom: 1.5rem; }
+  .contact-body {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+  .contact-links { display: flex; flex-direction: column; gap: 1rem; }
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    padding: 1.25rem 1.5rem;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 3px;
+    transition: background 0.2s;
+    color: #fff;
+  }
+  .contact-link:hover { background: rgba(255,255,255,0.18); }
+  .contact-link-label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.55); }
+  .contact-link-value { font-size: 0.95rem; color: #fff; font-weight: 400; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 2rem 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .footer-name {
+    font-family: 'DM Serif Display', serif;
+    color: rgba(255,255,255,0.3);
+    font-size: 0.95rem;
+  }
+  .footer-note {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.2);
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow { animation: fadeUp 0.7s ease 0.1s both; }
+  .hero-name { animation: fadeUp 0.7s ease 0.25s both; }
+  .hero-tagline { animation: fadeUp 0.7s ease 0.4s both; }
+  .hero-ctas { animation: fadeUp 0.7s ease 0.55s both; }
+  .stat-pill:nth-child(1) { animation: fadeUp 0.6s ease 0.3s both; }
+  .stat-pill:nth-child(2) { animation: fadeUp 0.6s ease 0.45s both; }
+  .stat-pill:nth-child(3) { animation: fadeUp 0.6s ease 0.6s both; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 5rem 2rem 3rem; }
+    .hero-right { min-height: 360px; }
+    .hero-stat-stack { padding: 2rem; gap: 1rem; }
+    .stat-num { font-size: 1.8rem; }
+    section { padding: 4rem 2rem; }
+    #about { grid-template-columns: 1fr; gap: 2.5rem; }
+    .projects-grid { grid-template-columns: 1fr; gap: 1px; }
+    #contact { grid-template-columns: 1fr; padding: 4rem 2rem; }
+    footer { padding: 1.5rem 2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Rachel</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Marketing Analytics · Brand Strategy</p>
+    <h1 class="hero-name">Turning<br>data into<br><em>decisions.</em></h1>
+    <p class="hero-tagline">MBA candidate bridging quantitative analysis with strategic brand thinking — from regression models to real-world marketing impact.</p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn btn-primary">View my work</a>
+      <a href="#contact" class="btn btn-outline">Get in touch</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stat-stack">
+      <div class="stat-pill">
+        <span class="stat-num">80K</span>
+        <span class="stat-label">Observations analyzed<br>in survival modeling study</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-num">K-M</span>
+        <span class="stat-label">Segmentation via<br>K-Means clustering</span>
+      </div>
+      <div class="stat-pill">
+        <span class="stat-num">MBA</span>
+        <span class="stat-label">University of Missouri<br>Expected May 2026</span>
+      </div>
+    </div>
+    <div class="hero-bg-text">R</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-body">
+    <p class="section-label">About</p>
+    <h2 class="section-title">Analyst by training,<br>strategist by instinct.</h2>
+    <p>I'm a marketing analytics professional completing my MBA at the University of Missouri with a Certificate in Marketing Analytics. My work lives at the intersection of <strong>rigorous data analysis</strong> and <strong>business strategy</strong> — where Python models and SAS regression outputs actually inform decisions, not just decks.</p>
+    <p>Before the MBA, I spent years in commercial insurance account management and consulting, developing a deep appreciation for how organizations change — and often resist it. That experience shapes how I approach analytics: not just as a technical exercise, but as a tool for building clarity and alignment.</p>
+    <p>I'm particularly drawn to roles in <strong>marketing analytics</strong> and <strong>brand management</strong> where the challenge is translating complexity into conviction.</p>
+  </div>
+  <div class="skills-grid">
+    <div>
+      <p class="skill-group-label">Analytics & Tools</p>
+      <div class="skill-tags">
+        <span class="tag accent">Python</span>
+        <span class="tag accent">SAS</span>
+        <span class="tag accent">SQL</span>
+        <span class="tag">Excel</span>
+        <span class="tag">SAS Enterprise Guide</span>
+      </div>
+    </div>
+    <div>
+      <p class="skill-group-label">Methods</p>
+      <div class="skill-tags">
+        <span class="tag teal">OLS Regression</span>
+        <span class="tag teal">Cox PH Survival</span>
+        <span class="tag teal">K-Means Clustering</span>
+        <span class="tag teal">Decision Trees</span>
+        <span class="tag">Segmentation</span>
+      </div>
+    </div>
+    <div>
+      <p class="skill-group-label">Business</p>
+      <div class="skill-tags">
+        <span class="tag">Brand Strategy</span>
+        <span class="tag">Change Management</span>
+        <span class="tag">Account Management</span>
+        <span class="tag">Consulting</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <p class="section-label">Experience</p>
+  <h2 class="section-title">Where I've been.</h2>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <span class="timeline-role">MBA Candidate · Marketing Analytics</span>
+        <span class="timeline-date">2024 – May 2026</span>
+      </div>
+      <p class="timeline-company">University of Missouri</p>
+      <p class="timeline-desc">Completing MBA with a Certificate in Marketing Analytics. Coursework spans Python, SAS, SQL, and applied analytics projects, with a focus on connecting quantitative methods to strategic marketing decisions.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <span class="timeline-role">Change Management Consultant</span>
+        <span class="timeline-date">Recent</span>
+      </div>
+      <p class="timeline-company">Agency Leadership Consulting</p>
+      <p class="timeline-desc">Partner with agency leaders on organizational change management and project implementation, helping teams design clearer processes and build accountability structures that actually hold.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <span class="timeline-role">Account Manager · Commercial Insurance</span>
+        <span class="timeline-date">Previous</span>
+      </div>
+      <p class="timeline-company">Commercial Insurance</p>
+      <p class="timeline-desc">Managed complex commercial accounts and client relationships, developing fluency in risk, stakeholder communication, and navigating ambiguity — skills that translate directly to data-driven brand work.</p>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-meta">
+        <span class="timeline-role">Personal Banker</span>
+        <span class="timeline-date">Previous</span>
+      </div>
+      <p class="timeline-company">Financial Services</p>
+      <p class="timeline-desc">Advised clients on financial products and services, building a foundation in needs-based selling, trust, and translating complexity into clear customer value.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <p class="section-label">Projects</p>
+  <h2 class="section-title">Selected work.</h2>
+  <div class="projects-grid">
+    <div class="project-card">
+      <div class="project-num">01</div>
+      <h3 class="project-title">Customer Survival Analysis</h3>
+      <p class="project-desc">Cox Proportional Hazards modeling on 80,000+ customer observations for Greeting Card, Inc. — predicting churn, interpreting hazard ratios, and delivering a formal consultant memo with actionable retention strategy.</p>
+      <div class="project-tags">
+        <span class="ptag">SAS PROC PHREG</span>
+        <span class="ptag">Cox PH</span>
+        <span class="ptag">OLS Regression</span>
+        <span class="ptag">Heteroscedasticity</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">02</div>
+      <h3 class="project-title">Talent Investment Program</h3>
+      <p class="project-desc">Built a Python-based segmentation model using K-Means clustering and a Decision Tree classifier to identify and prioritize high-value talent investment opportunities, delivered as a polished stakeholder deck.</p>
+      <div class="project-tags">
+        <span class="ptag">Python</span>
+        <span class="ptag">K-Means</span>
+        <span class="ptag">Decision Tree</span>
+        <span class="ptag">Scikit-learn</span>
+      </div>
+    </div>
+    <div class="project-card">
+      <div class="project-num">03</div>
+      <h3 class="project-title">SQL Analytics Practicum</h3>
+      <p class="project-desc">Advanced SQL analysis covering multi-table joins, correlated subqueries, CASE-based pivoting, and GROUP BY aggregations — applying database querying to real marketing data scenarios.</p>
+      <div class="project-tags">
+        <span class="ptag">SQL Server</span>
+        <span class="ptag">Correlated Subqueries</span>
+        <span class="ptag">Pivoting</span>
+        <span class="ptag">Joins</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div>
+    <p class="section-label">Contact</p>
+    <h2 class="section-title">Let's talk analytics and brand.</h2>
+    <p class="contact-body">I'm actively exploring marketing analytics and brand management roles for Summer / Fall 2026. If you're working on something interesting at the intersection of data and brand, I'd love to connect.</p>
+    <a href="#" class="btn" style="background:#fff; color: var(--accent); border-radius:2px;">Download résumé</a>
+  </div>
+  <div class="contact-links">
+    <a href="mailto:your@email.com" class="contact-link">
+      <div>
+        <p class="contact-link-label">Email</p>
+        <p class="contact-link-value">your@email.com</p>
+      </div>
+    </a>
+    <a href="https://linkedin.com/in/yourprofile" target="_blank" class="contact-link">
+      <div>
+        <p class="contact-link-label">LinkedIn</p>
+        <p class="contact-link-value">linkedin.com/in/yourprofile</p>
+      </div>
+    </a>
+    <a href="https://github.com/yourhandle" target="_blank" class="contact-link">
+      <div>
+        <p class="contact-link-label">GitHub</p>
+        <p class="contact-link-value">github.com/yourhandle</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-name">Rachel</span>
+  <span class="footer-note">MBA Candidate · University of Missouri · May 2026</span>
+</footer>
+
+</body>
+</html>
